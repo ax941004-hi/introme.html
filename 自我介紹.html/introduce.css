@@ -1,0 +1,167 @@
+/* 基礎設定 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: rgb(18, 0, 54);
+    font-family: 'Noto Sans TC', sans-serif;
+    color: white;
+    overflow-x: hidden;
+}
+
+.page-title {
+    text-align: center;
+    padding: 60px 0 20px 0;
+    color: #c2fff8;
+    font-size: 2.5rem;
+}
+
+.back-home {
+    position: fixed;
+    top: 20px; left: 20px;
+    color: rgb(195, 202, 249);
+    text-decoration: none;
+    z-index: 100;
+    padding: 8px 15px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+}
+
+/* 容器佈局 */
+.timeline-wrapper {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+/* 中間主幹：維持一條直線，確保穩定 */
+.main-trunk {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background-color: white;
+    z-index: 0;
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
+
+.timeline-container {
+    position: relative;
+    z-index: 1;
+}
+
+.timeline-item {
+    display: flex;
+    flex-direction: column;
+    width: 120px;
+    margin-bottom: 80px;
+    cursor: pointer;
+    position: relative;
+}
+
+/* --- 核心修正：讓每個圓圈長出一條彎曲的線連到中間 --- */
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    top: 50px; /* 圓圈的中心高度 */
+    width: 80px; /* 線的長度 */
+    height: 40px; /* 線的彎曲高度 */
+    border: 3px solid white;
+}
+
+/* 左邊的連線：向右連接到中線 */
+.timeline-item.left {
+    margin-left: calc(50% - 185px); 
+    align-items: center;
+}
+.timeline-item.left::before {
+    left: 105px; /* 從圓圈右側開始 */
+    border-left: 0;
+    border-bottom: 0;
+    border-radius: 0 40px 0 0; /* 右上圓角，產生彎曲感 */
+}
+
+/* 右邊的連線：向左連接到中線 */
+.timeline-item.right {
+    margin-left: calc(50% + 66px);
+    align-items: center;
+}
+.timeline-item.right::before {
+    right: 105px; /* 從圓圈左側開始 */
+    border-right: 0;
+    border-top: 0;
+    border-radius: 0 0 0 40px; /* 左下圓角 */
+}
+
+/* 圓圈樣式 */
+.photo-circle {
+    width: 200px;
+    height: 250px;
+    background-color: #439b92;
+    border: 5px solid white;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 2;
+    position: relative;
+}
+
+.photo-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.stage-label {
+    margin-top: 10px;
+    background: rgba(0,0,0,0.7);
+    padding: 5px 12px;
+    border-radius: 15px;
+    color: #c2fff8;
+    white-space: nowrap;
+}
+
+/* 懸停變色 */
+.timeline-item:hover .photo-circle {
+    border-color: #32d74b;
+    transform: scale(1.1);
+}
+
+/* Modal 樣式 (保持不變) */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 1000;
+}
+.modal-overlay.active { 
+    opacity: 1; 
+    pointer-events: auto; 
+}
+.modal-card {
+    background: rgba(30, 30, 50, 0.95);
+    padding: 40px; 
+    border-radius: 30px;
+    max-width: 450px; 
+    width: 90%;
+    position: relative; 
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+.close-btn { position: absolute;
+             top: 15px;
+             right: 20px; 
+             color: white; 
+             font-size: 35px; 
+             cursor: pointer;
+             background: none; 
+             border: none; 
+            }

@@ -1,31 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>成長經歷</title>
+    <title>成長經歷 - 郭澔澄</title>
     <link rel="stylesheet" href="introduce.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <a href="main.html">返回主頁</a>
-    <h1>人生階段</h1>
-    photo
-    <h2>幼兒園前</h2>
-    describe <br>
-    photo
-    <h2>幼兒園</h2>
-    describe <br>
-    photo
-    <h2>國小</h2>
-    describe <br>
-    photo
-    <h2>國中</h2>
-    describe <br>
-    photo
-    <h2>高中</h2>
-    describe <br>
-    photo
-    <h2>大學</h2>
-    describe <br>
+
+    <a href="main.html" class="back-home">← 返回主頁</a>
+    <h1 class="page-title">人生階段</h1>
+
+    <div class="timeline-wrapper">
+        <div class="main-trunk"></div>
+
+        <div class="timeline-container">
+            <div class="timeline-item left" onclick="openModal('modal1')">
+                <div class="photo-circle"><img src="img/me.png" alt="幼兒園前"></div>
+                <span class="stage-label">幼兒園前</span>
+            </div>
+
+            <div class="timeline-item right" onclick="openModal('modal2')">
+                <div class="photo-circle"><img src="kindergarten.jpg" alt="幼兒園"></div>
+                <span class="stage-label">幼兒園</span>
+            </div>
+
+            <div class="timeline-item left" onclick="openModal('modal3')">
+                <div class="photo-circle"><img src="elementary.jpg" alt="國小"></div>
+                <span class="stage-label">國小</span>
+            </div>
+
+            <div class="timeline-item right" onclick="openModal('modal4')">
+                <div class="photo-circle"><img src="junior.jpg" alt="國中"></div>
+                <span class="stage-label">國中</span>
+            </div>
+
+            <div class="timeline-item left" onclick="openModal('modal5')">
+                <div class="photo-circle"><img src="senior.jpg" alt="高中"></div>
+                <span class="stage-label">高中</span>
+            </div>
+
+            <div class="timeline-item right" onclick="openModal('modal6')">
+                <div class="photo-circle"><img src="university.jpg" alt="大學"></div>
+                <span class="stage-label">大學</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <script>
+        const stageData = {
+        modal1: { title: "幼兒園前", desc: "這時期的我，什麼話都不會說，走路也不太會走，只會整天在家哭跟等著洗澡吃飯睡覺", img: "img/me.png" }, // <--- 改好了
+        modal2: { title: "幼兒園", desc: "快樂的童年時光...", img: "me.jpg" }, 
+        modal3: { title: "國小", desc: "建立學習基礎...", img: "me.jpg" }, 
+        modal4: { title: "國中", desc: "青澀的國中回憶...", img: "me.jpg" }, 
+        modal5: { title: "高中", desc: "熱血的社團與學業...", img: "me.jpg" }, 
+        modal6: { title: "大學", desc: "目前就讀資訊管理系...", img: "me.jpg" } 
+        };
+
+        function openModal(id) {
+            const data = stageData[id];
+            document.getElementById('modal-content').innerHTML = `
+                <img src="${data.img}" style="width:100%; border-radius:15px; margin-bottom:15px; border: 3px solid #ffff00;">
+                <h2 style="color:#c2fff8; margin-bottom:10px;">${data.title}</h2>
+                <p style="color:aliceblue; line-height:1.6;">${data.desc}</p>
+            `;
+            document.getElementById('modal-overlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.remove('active');
+        }
+    </script>
 </body>
 </html>
