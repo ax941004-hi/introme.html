@@ -1,6 +1,13 @@
  body{
     background-color: rgb(18, 0, 54);
  }
+ .back-home {
+    position: fixed;
+    top: 20px; left: 20px;
+    color: rgb(195, 202, 249);
+    text-decoration: none;
+    z-index: 100;
+}
  h1{
     color: #c2fff8;
     text-align: center;

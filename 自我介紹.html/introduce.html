@@ -10,39 +10,40 @@
 <body>
 
     <a href="main.html" class="back-home">← 返回主頁</a>
-    <h1 class="page-title">人生階段</h1>
 
     <div class="timeline-wrapper">
+        <div class="top-oval">
+            <h1>成長經歷</h1>
+        </div>
+
         <div class="main-trunk"></div>
 
         <div class="timeline-container">
-            <div class="timeline-item left" onclick="openModal('modal1')">
-                <div class="photo-circle"><img src="img/me.png" alt="幼兒園前"></div>
-                <span class="stage-label">幼兒園前</span>
-            </div>
-
-            <div class="timeline-item right" onclick="openModal('modal2')">
-                <div class="photo-circle"><img src="kindergarten.jpg" alt="幼兒園"></div>
-                <span class="stage-label">幼兒園</span>
-            </div>
-
             <div class="timeline-item left" onclick="openModal('modal3')">
-                <div class="photo-circle"><img src="elementary.jpg" alt="國小"></div>
+                <div class="photo-parallelogram">
+                    <img src="img/elementary.jpg" alt="國小">
+                </div>
                 <span class="stage-label">國小</span>
             </div>
 
             <div class="timeline-item right" onclick="openModal('modal4')">
-                <div class="photo-circle"><img src="junior.jpg" alt="國中"></div>
+                <div class="photo-parallelogram">
+                    <img src="img/junior_high.JPG" alt="國中">
+                </div>
                 <span class="stage-label">國中</span>
             </div>
 
             <div class="timeline-item left" onclick="openModal('modal5')">
-                <div class="photo-circle"><img src="senior.jpg" alt="高中"></div>
+                <div class="photo-parallelogram">
+                    <img src="img/Senior_high2.jpg"高中">
+                </div>
                 <span class="stage-label">高中</span>
             </div>
 
             <div class="timeline-item right" onclick="openModal('modal6')">
-                <div class="photo-circle"><img src="university.jpg" alt="大學"></div>
+                <div class="photo-parallelogram">
+                    <img src="img/college.JPG" alt="大學">
+                </div>
                 <span class="stage-label">大學</span>
             </div>
         </div>
@@ -57,20 +58,19 @@
 
     <script>
         const stageData = {
-        modal1: { title: "幼兒園前", desc: "這時期的我，什麼話都不會說，走路也不太會走，只會整天在家哭跟等著洗澡吃飯睡覺", img: "img/me.png" }, // <--- 改好了
-        modal2: { title: "幼兒園", desc: "快樂的童年時光...", img: "me.jpg" }, 
-        modal3: { title: "國小", desc: "建立學習基礎...", img: "me.jpg" }, 
-        modal4: { title: "國中", desc: "青澀的國中回憶...", img: "me.jpg" }, 
-        modal5: { title: "高中", desc: "熱血的社團與學業...", img: "me.jpg" }, 
-        modal6: { title: "大學", desc: "目前就讀資訊管理系...", img: "me.jpg" } 
+           
+            modal3: { title: "國小", desc: "1.曾當選過模範生<br>2.代表學校參加樂樂棒比賽<br>3.參加過各種畫畫比賽並獲獎<br>4.畢業獲得市長獎<br>" , img: "img/elementary.jpg" },
+            modal4: { title: "國中", desc: "1.參加過畫畫比賽並得獎<br>2.參與班服設計<br>3.Covid-19爆發無法上學<br>4.參與班際賽事並獲獎<br>", img: "img/junior_high.JPG" },
+            modal5: { title: "高中", desc: "1.參與英語闖關的製作<br>2.與新加坡的英文線上交流<br>3.參加自走車比賽-線上比賽<br>4.參加自走車比賽-實體比賽並獲獎<br>5.參加學生會的美宣組<br>6.參加畢聯會的製作<br>7.參加班際排球比賽並奪冠<br>", img: "img/Senior_high2.jpg" },
+            modal6: { title: "大學", desc: "1.考得BI規劃師證照<br>2.ICDL Artificial Intelligence證照<br>3.製作出一款簡單的2D遊戲<br>...", img: "img/college.JPG" }
         };
 
         function openModal(id) {
             const data = stageData[id];
             document.getElementById('modal-content').innerHTML = `
-                <img src="${data.img}" style="width:100%; border-radius:15px; margin-bottom:15px; border: 3px solid #ffff00;">
-                <h2 style="color:#c2fff8; margin-bottom:10px;">${data.title}</h2>
-                <p style="color:aliceblue; line-height:1.6;">${data.desc}</p>
+                <img src="${data.img}" style="width:100%; border-radius:10px; margin-bottom:15px; border: 2px solid #fff;">
+                <h2 style="color:#c2fff8;">${data.title}</h2>
+                <p style="color:white; margin-top:10px; line-height:1.6;">${data.desc}</p>
             `;
             document.getElementById('modal-overlay').classList.add('active');
         }
