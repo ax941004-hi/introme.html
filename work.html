@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的測驗結果</title>
+    <link rel="stylesheet" href="work.css">
+</head>
+<body>
+    <a href="main.html" class="back-link">← 返回主頁</a>
+
+    <div class="main-container">
+        
+        <div class="section">
+            <div class="white-box">何倫碼的測驗結果</div>
+            
+            <div class="info-row">
+                <div class="yellow-text">我的結果：<br>C事務型 x S社會型</div>
+                <a href="https://guide.104.com.tw/interest/CS" class="orange-link">點擊測試您的Holland</a>
+            </div>
+
+            <div class="image-wrapper">
+                <img src="img/holland1 (1).png" id="hollandImg" class="green-img" alt="何倫碼結果">
+                
+                <button class="nav-arrow left" onclick="changeImg(-1)">❮</button>
+                <button class="nav-arrow right" onclick="changeImg(1)">❯</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="white-box">UCAN的測驗結果</div>
+            <div class="info-row">
+                <div class="yellow-text">我的結果：ACI</div>
+                <a href="https://ucan.moe.edu.tw/" class="orange-link">UCAN大專院校就業職能平台</a>
+            </div>
+            <div class="image-wrapper">
+                <img src="img/ucan.png" class="green-img" alt="Ucan結果">
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 圖片切換邏輯
+        const images = ["img/holland1 (1).png", "img/holland1 (2).png", "img/holland1 (3).png"];
+        let currentIndex = 0;
+
+        function changeImg(step) {
+            currentIndex += step;
+            if (currentIndex < 0) currentIndex = images.length - 1;
+            if (currentIndex >= images.length) currentIndex = 0;
+            document.getElementById('hollandImg').src = images[currentIndex];
+        }
+    </script>
+</body>
+</html>
