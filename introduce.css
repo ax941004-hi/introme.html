@@ -1,14 +1,44 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background-color: rgb(18, 0, 54);
+    /* 1. 你的原色作為底色，防止加載時閃爍 */
+    background-color: rgb(18, 0, 54); 
     font-family: 'Noto Sans TC', sans-serif;
     color: white;
     overflow-x: hidden;
+    margin: 0;
+    min-height: 100vh;
+
+    /* 2. 背景固定，不隨捲動跑掉 */
+    background-attachment: fixed;
+
+    /* 3. 建立多層斜切線條 (由上而下疊加) */
+    background-image: 
+        /* 第一條線：左上角的淺紫色區塊 */
+        linear-gradient(135deg, 
+            rgba(167, 217, 255) 0%, 
+            rgba(203, 184, 255, 0.2) 25%, 
+            transparent 25.1%
+        ),
+        /* 第二條線：右下角的淺藍色裝飾線 */
+        linear-gradient(150deg, 
+            transparent 0%, 
+            transparent 75%, 
+            rgba(189, 250, 255, 0.15) 75.1%, 
+            rgba(35, 25, 80) 100%
+        ),
+        /* 第三條線：中間的主斜切面（深藍到更深的黑藍） */
+        linear-gradient(120deg, 
+            rgb(68, 46, 110) 0%, 
+            rgb(50, 32, 87) 50%, 
+            rgb(30, 8, 75) 100%
+        );
+
+    background-size: cover;
 }
 
 .back-home {
-    position: absolute;
+    position: fixed;
     top: 30px;
     right: 40px;
     text-decoration: none;

@@ -11,7 +11,29 @@ body {
     color: #fff;
     position: relative; /* 讓右上角定位參考 body */
     overflow: hidden; /* 防止出現滾動條 */
+     background-image: 
+        /* 1. 最上面的漸層 (淺藍色切線，角度更斜 160deg) */
+        linear-gradient(
+            170deg, 
+            transparent 0%, 
+            transparent 60%,      /* 60% 以前是透明的 */
+            #ffffbd 60.1%,        /* 60.1% 瞬間切換成淺藍色 */
+            #bdfaff 100%          /* 剩下的都是淺藍色 */
+        ),
+      
+        /* 2. 中間的漸層 (淺紫色切線，角度 135deg) */
+        linear-gradient(
+            85deg, 
+            #ffd387 0%, 
+            #fffddb 30%,          /* 30% 以前是淺紫色 */
+            #deb878 30.1%,        /* 30.1% 瞬間切換成深藍色 */
+            #deb878 100%          /* 剩下的都是深藍色 */
+        );
+         background-size: cover;      /* 確保背景覆蓋整個視窗 */
+    margin: 0;
+    min-height: 100vh;  
 }
+
 
 /* 右上角返回連結 */
 .back-link {
@@ -19,13 +41,14 @@ body {
     top: 30px;
     right: 40px;
     text-decoration: none;
-    color: #c8de4a;
+    color: #ef7817;
     font-size: 1.1rem;
     padding: 8px 16px;
     border: 1px solid rgba(74, 222, 128, 0.3);
     border-radius: 20px;
     transition: all 0.3s ease;
     z-index: 10; /* 確保在最上層 */
+    font-weight: bold;
 }
 
 .back-link:hover {

@@ -1,0 +1,137 @@
+/* 全域設定 */
+body {
+    background-color: #0d0033; /* 深紫色背景 */
+    margin: 0;
+    padding: 20px;
+    font-family: "Microsoft JhengHei", sans-serif;
+    display: flex;
+    justify-content: center;
+     background-image: 
+        /* 1. 最上面的漸層 (淺藍色切線，角度更斜 160deg) */
+   linear-gradient(
+            160deg, 
+            transparent 0%, 
+            transparent 60%,      /* 60% 以前是透明的 */
+            #bdccff 60.1%,        /* 60.1% 瞬間切換成淺藍色 */
+            #8372ae 100%          /* 剩下的都是淺藍色 */
+        ),
+         linear-gradient(
+        -65deg, 
+            transparent 0%, 
+            transparent 60%,      /* 60% 以前是透明的 */
+            #5f77fd 60.1%,        /* 60.1% 瞬間切換成淺藍色 */
+            #c0bdff 100%          /* 剩下的都是淺藍色 */
+        ),
+        /* 2. 中間的漸層 (淺紫色切線，角度 135deg) */
+        linear-gradient(
+            85deg, 
+            #6536e6 0%, 
+            #cbb8ff 30%,          /* 30% 以前是淺紫色 */
+            #0d0033 30.1%,        /* 30.1% 瞬間切換成深藍色 */
+            #0d0033 100%          /* 剩下的都是深藍色 */
+        );
+      
+         background-size: cover;      /* 確保背景覆蓋整個視窗 */
+    margin: 0;
+    min-height: 100vh;  
+}
+
+
+/* 返回按鈕 (黃色) */
+.back-link {
+    position: fixed;
+    top: 30px;
+    right: 40px;
+    text-decoration: none;
+    color: #94c5d9;
+    font-size: 1.1rem;
+    padding: 8px 16px;
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    z-index: 10; /* 確保在最上層 */
+}
+.back-link:hover {
+    background-color: #bdfaff;
+    color: #0a0a23;
+    box-shadow: 0 0 15px rgba(7, 22, 97, 0.5);
+}
+
+
+/* 整體容器 */
+.main-container {
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 40px;
+}
+
+/* 頂部區塊 (淺藍色) */
+.header-section {
+    background-color: #d1f7ff;
+    padding: 50px;
+    border-radius: 0px 50px 50px 50px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+/* 紅色標題 */
+.main-title {
+    background-color: #395fe6;
+    color: white;
+    display: inline-block;
+    padding: 5px 25px;
+    border-radius: 0px 50px 50px 50px;
+    font-size: 2rem;
+    margin-bottom:10px;
+    margin-left: -20px;  /* 數值越大，越往右移 */
+    margin-top: -20px;   /* 數值越大，越往下移 */
+}
+
+/* 內容區 (桃粉色) */
+.content-body {
+    background-color: #426df0;
+    padding: 20px;
+    border-radius: 0px 20px 20px 20px;
+}
+
+/* 綠色小標 */
+.sub-title {
+    background-color: #0d104a;
+    color: #a1f0ec;
+    display: inline-block;
+    padding: 5px 20px;
+    border-radius: 0px 20px 20px 20px;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    margin-left: 5px;  /* 數值越大，越往右移 */
+    margin-top: 10px;   /* 數值越大，越往下移 */
+}
+
+/* 紫色圖片容器 */
+.image-box {
+    background-color: #afb7f6;
+    padding: 5px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.image-box img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.intro-text{
+    font-size: 25px;
+    font-weight: bolder; 
+    }
+.text-text {
+    font-size: 20px;
+    margin-left: 0px;  /* 數值越大，越往右移 */
+    margin-top: 10px;   /* 數值越大，越往下移 */
+    line-height: 1.5;  /* 數值越大，每一行字之間的距離就越開 */
+    margin-left: 20px; /* 建議給一點左邊距，讓文字不要貼邊 */
+}

@@ -14,6 +14,20 @@ body {
     align-items: center;
     min-height: 100vh;
     overflow-x: hidden; /* 防止手機版左右滑動 */
+    /* 這裡使用線性漸層來創造斜切 */
+    background-image: linear-gradient(
+        55deg,           /* 切線的角度，135度是從左上到右下的斜線 */
+        #cbb8ff 0%,       /* 左上方開始的淺紫色 */
+        #cbb8ff 45%,      /* 淺紫色一直維持到 45% 的位置 */
+        #0d0033 45.1%,    /* 在 45.1% 瞬間切換成深藍色 (多 0.1% 讓邊緣更銳利) */
+        #0d0033 100%      /* 剩下的部分都是深藍色 */
+    );
+
+    /* 確保背景填滿整個畫面 */
+    background-attachment: fixed; /* 讓背景固定，不隨著內容捲動 */
+    background-size: cover;      /* 確保背景覆蓋整個視窗 */
+    margin: 0;
+    min-height: 100vh;           /* 確保 body 高度至少是螢幕高度，背景才看得見 */
 }
 
 /* 2. 整個卡片容器佈局 */
@@ -23,15 +37,15 @@ body {
     position: relative;
     width: 200%;
     max-width: 1000px;
-    margin: 50px auto;
+    margin: 25px auto;
     margin-right: 300px;
 }
 
 /* 3. 灰色半透明面板 (草圖中的灰色部分) */
 .glass-panel {
     /* 灰色 + 降低透明度 (0.4) */
-    background-color: rgba(120, 120, 120, 0.4); 
-    padding: 80px 100px 50px 70px;
+    background-color: rgba(224, 208, 255, 0.4); 
+    padding: 50px 100px 40px 50px;
     border-radius: 25px;
     flex: 1;
     z-index: 1;
@@ -84,14 +98,14 @@ body {
 
 /* 合併你原本的狀態顏色邏輯到按鈕上 */
 .btn-link:hover {
-    background-color: #01f7a5;
-    color: rgb(186, 249, 249); /* 你原本 hover 的顏色 */
+    background-color: #7efcfc;
+    color: rgb(0, 85, 85); /* 你原本 hover 的顏色 */
     transform: translateX(15px);
     box-shadow: 0 0 20px rgba(255, 59, 48, 0.4);
 }
 
 .btn-link:active {
-    color: rgb(169, 246, 150); /* 你原本 active 的顏色 */
+    color: rgb(150, 246, 216); /* 你原本 active 的顏色 */
     transform: scale(0.95);
 }
 
@@ -184,6 +198,8 @@ body {
     z-index: 1500;
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
     border-left: 1px solid rgba(175, 247, 252, 0.2);
+    overflow-y: auto;       /* 當內容超出時顯示捲軸 */
+    max-height: 100vh;     /* 限制最大高度為螢幕高度，這很重要 */
 }
 
 .side-menu h3 {
