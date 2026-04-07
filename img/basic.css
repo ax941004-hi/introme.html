@@ -1,0 +1,143 @@
+/* 基本重置 */
+body {
+    margin: 0;
+    padding: 0 150px;
+    display: flex;
+    align-items: center;
+    justify-content:left;
+    min-height: 100vh;
+    background-color: #23160a;
+    font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+    color: #fff;
+    position: relative; /* 讓右上角定位參考 body */
+    overflow: hidden; /* 防止出現滾動條 */
+     background-image: 
+        /* 1. 最上面的漸層 (淺藍色切線，角度更斜 160deg) */
+        linear-gradient(
+            170deg, 
+            transparent 0%, 
+            transparent 60%,      /* 60% 以前是透明的 */
+            #ffffbd 60.1%,        /* 60.1% 瞬間切換成淺藍色 */
+            #bdfaff 100%          /* 剩下的都是淺藍色 */
+        ),
+      
+        /* 2. 中間的漸層 (淺紫色切線，角度 135deg) */
+        linear-gradient(
+            85deg, 
+            #ffd387 0%, 
+            #fffddb 30%,          /* 30% 以前是淺紫色 */
+            #deb878 30.1%,        /* 30.1% 瞬間切換成深藍色 */
+            #deb878 100%          /* 剩下的都是深藍色 */
+        );
+         background-size: cover;      /* 確保背景覆蓋整個視窗 */
+    margin: 0;
+    min-height: 100vh;  
+}
+
+
+/* 右上角返回連結 */
+.back-link {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    text-decoration: none;
+    color: #ef7817;
+    font-size: 1.1rem;
+    padding: 8px 16px;
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    z-index: 10; /* 確保在最上層 */
+    font-weight: bold;
+}
+
+.back-link:hover {
+    background-color: #cfde4a;
+    color: #0a0a23;
+    box-shadow: 0 0 15px rgba(198, 181, 93, 0.5);
+}
+
+/* 名片主容器：調整為更大比例以符合頁面感 */
+.card {
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    background: #dfe1c7;
+    border: 5px solid #979a62;
+    border-radius: 25px;
+    padding: 60px; /* 增加內距 */
+    width: 80vw;    /* 寬度佔螢幕 80% */
+    max-width: 1000px; /* 最大寬度限制 */
+    height: 60vh;   /* 高度佔螢幕 50% */
+    min-height: 400px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+/* 左側圖片區塊縮放 */
+.profile-photo {
+    width: 350px; /* 拉大圖片區域 */
+    height: 350px;
+    background-color: #fff;
+    border-radius: 15px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 右側資訊區塊 */
+.profile-info {
+    margin-left: 60px; /* 增加間距 */
+    flex-grow: 1;
+}
+
+.profile-info h1 {
+    font-size: 3.5rem; /* 字體加大 */
+    margin-bottom: 10px;
+    color: #0a0a23;
+    font-weight:bolder
+}
+
+.profile-info .school {
+    font-size:1.8rem;
+    color: #013d17;
+    margin-bottom: 20px;
+    font-weight: bolder;
+}
+
+.details li {
+    margin-bottom: 15px;
+    font-size: 1.5rem; /* 資訊字體加大 */
+    border-left: 4px solid #fb8c24;
+    padding-left: 15px;
+    color: #0a0a23;
+    font-weight: 900;
+}
+
+/* 手機版適應：當螢幕太小時自動切換垂直佈局 */
+@media (max-width: 900px) {
+    .card {
+        flex-direction: column;
+        width: 90vw;
+        height: auto;
+        padding: 40px 20px;
+    }
+    .profile-info {
+        margin-left: 0;
+        margin-top: 30px;
+        text-align: center;
+    }
+    .profile-photo {
+        width: 200px;
+        height: 200px;
+    }
+    .back-link {
+        top: 20px;
+        right: 20px;
+        font-size: 0.9rem;
+    }
+}

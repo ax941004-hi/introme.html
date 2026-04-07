@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成長經歷 - 郭澔澄</title>
+    <link rel="stylesheet" href="introduce.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <a href="main.html" class="back-home">← 返回主頁</a>
+
+    <div class="timeline-wrapper">
+        <div class="top-oval">
+            <h1>成長經歷</h1>
+        </div>
+
+        <div class="main-trunk"></div>
+
+        <div class="timeline-container">
+            <div class="timeline-item left" onclick="openModal('modal3')">
+                <div class="photo-parallelogram">
+                    <img src="img/elementary.jpg" alt="國小">
+                </div>
+                <span class="stage-label">國小</span>
+            </div>
+
+            <div class="timeline-item right" onclick="openModal('modal4')">
+                <div class="photo-parallelogram">
+                    <img src="img/junior_high.JPG" alt="國中">
+                </div>
+                <span class="stage-label">國中</span>
+            </div>
+
+            <div class="timeline-item left" onclick="openModal('modal5')">
+                <div class="photo-parallelogram">
+                    <img src="img/Senior_high2.jpg"高中">
+                </div>
+                <span class="stage-label">高中</span>
+            </div>
+
+            <div class="timeline-item right" onclick="openModal('modal6')">
+                <div class="photo-parallelogram">
+                    <img src="img/college.JPG" alt="大學">
+                </div>
+                <span class="stage-label">大學</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <script>
+        const stageData = {
+           
+            modal3: { title: "國小", desc: "1.曾當選過模範生<br>2.代表學校參加樂樂棒比賽<br>3.參加過各種畫畫比賽並獲獎<br>4.畢業獲得市長獎<br>" , img: "img/elementary.jpg" },
+            modal4: { title: "國中", desc: "1.參加過畫畫比賽並得獎<br>2.參與班服設計<br>3.Covid-19爆發無法上學<br>4.參與班際賽事並獲獎<br>", img: "img/junior_high.JPG" },
+            modal5: { title: "高中", desc: "1.參與英語闖關的製作<br>2.與新加坡的英文線上交流<br>3.參加自走車比賽-線上比賽<br>4.參加自走車比賽-實體比賽並獲獎<br>5.參加學生會的美宣組<br>6.參加畢聯會的製作<br>7.參加班際排球比賽並奪冠<br>", img: "img/Senior_high2.jpg" },
+            modal6: { 
+                     title: "大學", 
+                     desc: "1.考得BI規劃師證照<br>2.ICDL Artificial Intelligence證照<br>3.製作出<a href='https://howard10004.itch.io/411303122-411312383' target='_blank' style='color: #ffffff; text-decoration: underline;'>一款簡單的2D遊戲</a>", 
+                     img: "img/college.JPG" 
+                    }
+        };
+
+        function openModal(id) {
+            const data = stageData[id];
+            document.getElementById('modal-content').innerHTML = `
+                <img src="${data.img}" style="width:100%; border-radius:10px; margin-bottom:15px; border: 2px solid #fff;">
+                <h2 style="color:#c2fff8;">${data.title}</h2>
+                <p style="color:white; margin-top:10px; line-height:1.6;">${data.desc}</p>
+            `;
+            document.getElementById('modal-overlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.remove('active');
+        }
+    </script>
+</body>
+</html>

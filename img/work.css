@@ -1,0 +1,170 @@
+/* 全域設定 */
+body {
+    background-color: #0b0033; /* 深藍色 */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  background-image: 
+        /* 1. 最上面的漸層 (淺藍色切線，角度更斜 160deg) */
+        linear-gradient(
+            170deg, 
+            transparent 0%, 
+            transparent 60%,      /* 60% 以前是透明的 */
+            #dabdff 60.1%,        /* 60.1% 瞬間切換成淺藍色 */
+            #bdfaff 100%          /* 剩下的都是淺藍色 */
+        ),
+         linear-gradient(
+        -65deg, 
+            transparent 0%, 
+            transparent 60%,      /* 60% 以前是透明的 */
+            #bdc7ff 60.1%,        /* 60.1% 瞬間切換成淺藍色 */
+            #bdfaff 100%          /* 剩下的都是淺藍色 */
+        ),
+        /* 2. 中間的漸層 (淺紫色切線，角度 135deg) */
+        linear-gradient(
+            45deg, 
+            #cbb8ff 0%, 
+            #cbb8ff 30%,          /* 30% 以前是淺紫色 */
+            #0d0033 30.1%,        /* 30.1% 瞬間切換成深藍色 */
+            #0d0033 100%          /* 剩下的都是深藍色 */
+        );
+
+    /* 確保背景填滿整個畫面 */
+    /*background-attachment: fixed; /* 讓背景固定，不隨著內容捲動 */
+    background-size: cover;      /* 確保背景覆蓋整個視窗 */
+    margin: 0;
+    min-height: 100vh;  
+}
+
+/* 粉色返回按鈕 */
+
+.back-link {
+    position: fixed;
+    top: 30px;
+    right: 40px;
+    text-decoration: none;
+    color: #94c5d9;
+    font-size: 1.1rem;
+    padding: 8px 16px;
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    z-index: 10; /* 確保在最上層 */
+}
+.back-link:hover {
+    background-color: #bdfaff;
+    color: #0a0a23;
+    box-shadow: 0 0 15px rgba(7, 22, 97, 0.5);
+}
+
+/* 主容器 */
+.main-container {
+    width: 90%;
+    max-width: 1000px;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding-bottom: 50px;
+}
+
+/* 每一組測驗內容 */
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 100%;
+}
+
+/* 白色標題框 */
+
+.white-box {
+    background: rgb(59, 79, 136);
+    color: #b4d3df;
+    padding: 30px 50px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 3.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    margin-bottom: 20px;
+    width: 100%;             /* 讓標題框與圖片同寬 */
+    box-sizing: border-box;  /* 確保 padding 不會撐開寬度 */
+    text-align: center;      /* 文字在框內置中 */
+}
+
+/* 黃字與橘連結橫列 */
+.info-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 0 10px;
+}
+
+.yellow-text {
+    background: rgb(110, 63, 39);
+    padding: 10px 50px;
+    border-radius: 20px;
+    color: #ffd700; /* 黃色 */
+    font-weight: bolder;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    text-shadow: 1px 1px 3px black;
+}
+
+.orange-link {
+    background: rgb(246, 231, 156);
+    padding: 20px 50px;
+    border-radius: 20px;
+    color: #ff8c00; /* 橘色 */
+    font-weight: bolder;
+    text-decoration: none;
+    border-bottom: 2px solid #ff8c00;
+    font-size: 1.5rem;
+}
+.orange-link:hover {
+    background-color: #f6ffbd;
+    color: #f81c08;
+    box-shadow: 0 0 15px rgba(7, 22, 97, 0.5);
+}
+
+/* 綠色大圖區容器 */
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    background-color: #90EE90; /* 綠色佔位 */
+    border-radius: 20px;
+    overflow: hidden;
+    border: 5px solid white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    
+}
+
+.green-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background-color: white;
+}
+
+/* 紅色切換箭頭 */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #4c0064; /* 紅色 */
+    font-size: 4rem;
+    cursor: pointer;
+    text-shadow: 0 0 10px white;
+    z-index: 10;
+    transition: transform 0.2s;
+}
+
+.nav-arrow:hover { transform: translateY(-50%) scale(1.2); }
+.left { left: 10px; }
+.right { right: 10px; }
