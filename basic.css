@@ -1,40 +1,21 @@
 /* 基本重置 */
 body {
     margin: 0;
-    padding: 0 150px;
+    padding: 0 20px; /* 手機版預設縮小，桌機由容器處理 */
     display: flex;
     align-items: center;
-    justify-content:left;
+    justify-content: center; /* 改為置中，桌機更美觀 */
     min-height: 100vh;
     background-color: #23160a;
     font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
     color: #fff;
-    position: relative; /* 讓右上角定位參考 body */
-   /* overflow: hidden; /* 防止出現滾動條 */
-   
-     background-image: 
-        /* 1. 最上面的漸層 (淺藍色切線，角度更斜 160deg) */
-        linear-gradient(
-            170deg, 
-            transparent 0%, 
-            transparent 60%,      /* 60% 以前是透明的 */
-            #ffffbd 60.1%,        /* 60.1% 瞬間切換成淺藍色 */
-            #bdfaff 100%          /* 剩下的都是淺藍色 */
-        ),
-      
-        /* 2. 中間的漸層 (淺紫色切線，角度 135deg) */
-        linear-gradient(
-            85deg, 
-            #ffd387 0%, 
-            #fffddb 30%,          /* 30% 以前是淺紫色 */
-            #deb878 30.1%,        /* 30.1% 瞬間切換成深藍色 */
-            #deb878 100%          /* 剩下的都是深藍色 */
-        );
-         background-size: cover;      /* 確保背景覆蓋整個視窗 */
-    margin: 0;
-    min-height: 100vh;  
+    position: relative;
+    background-image: 
+        linear-gradient(170deg, transparent 0%, transparent 60%, #ffffbd 60.1%, #bdfaff 100%),
+        linear-gradient(85deg, #ffd387 0%, #fffddb 30%, #deb878 30.1%, #deb878 100%);
+    background-size: cover;
+    background-attachment: fixed;
 }
-
 
 /* 右上角返回連結 */
 .back-link {
@@ -47,41 +28,43 @@ body {
     padding: 8px 16px;
     border: 1px solid rgba(74, 222, 128, 0.3);
     border-radius: 20px;
+    background: rgba(35, 22, 10, 0.1); /* 增加一點背景防止看不清 */
     transition: all 0.3s ease;
-    z-index: 10; /* 確保在最上層 */
+    z-index: 100;
     font-weight: bold;
 }
 
 .back-link:hover {
     background-color: #cfde4a;
     color: #0a0a23;
-    box-shadow: 0 0 15px rgba(198, 181, 93, 0.5);
 }
 
-/* 名片主容器：調整為更大比例以符合頁面感 */
+/* 名片主容器 */
 .card {
     display: flex;
     flex-direction: row;
-    align-items:center;
+    align-items: center;
     background: #dfe1c7;
     border: 5px solid #979a62;
     border-radius: 25px;
-    padding: 60px; /* 增加內距 */
-    width: 80vw;    /* 寬度佔螢幕 80% */
-    max-width: 1000px; /* 最大寬度限制 */
-    height: 60vh;   /* 高度佔螢幕 50% */
-    min-height: 400px;
+    padding: 40px; 
+    width: 90vw;
+    max-width: 1000px;
+    height: auto; /* 高度改為 auto 讓內容撐開 */
+    min-height: 500px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
 }
 
-/* 左側圖片區塊縮放 */
+/* 左側圖片區塊 */
 .profile-photo {
-    width: 350px; /* 拉大圖片區域 */
-    height: 350px;
+    width: 300px;
+    height: 300px;
     background-color: #fff;
     border-radius: 15px;
     flex-shrink: 0;
     overflow: hidden;
+    border: 3px solid #979a62;
 }
 
 .profile-photo img {
@@ -92,143 +75,94 @@ body {
 
 /* 右側資訊區塊 */
 .profile-info {
-    margin-left: 60px; /* 增加間距 */
+    margin-left: 50px;
     flex-grow: 1;
 }
 
 .profile-info h1 {
-    font-size: 3.5rem; /* 字體加大 */
+    font-size: 3rem;
     margin-bottom: 10px;
     color: #0a0a23;
-    font-weight:bolder
+    font-weight: bolder;
 }
 
 .profile-info .school {
-    font-size:1.8rem;
+    font-size: 1.5rem;
     color: #013d17;
     margin-bottom: 20px;
     font-weight: bolder;
 }
 
+.details {
+    list-style: none;
+    padding: 0;
+}
+
 .details li {
     margin-bottom: 15px;
-    font-size: 1.5rem; /* 資訊字體加大 */
+    font-size: 1.2rem;
     border-left: 4px solid #fb8c24;
     padding-left: 15px;
     color: #0a0a23;
     font-weight: 900;
+    text-align: left; /* 預設靠左 */
 }
 
-/* 手機版適應：當螢幕太小時自動切換垂直佈局 */
-/* --- 手機版響應式：強制修正版 --- */
-/* --- 手機版響應式設定 (@media) --- */
+/* --- 手機版響應式修正 --- */
 @media (max-width: 900px) {
-    /* 1. 全域滾動設定 */
     body {
-        padding: 0;      
-        height: auto !important;   
-        overflow-y: auto !important; 
-        overflow-x: hidden !important; 
-        display: block;            
+        padding: 20px 10px;
+        display: block; /* 讓內容垂直堆疊，開啟下拉功能 */
     }
 
-    /* 2. 主容器：增加左右預留空間 */
-    .main-container {
+    .card {
+        flex-direction: column !important; /* 強制垂直排列 */
         width: 100% !important;
-        margin-top: 70px !important; 
-        padding: 0 15px !important; /* 增加左右間距，防止內容貼齊螢幕 */
-        box-sizing: border-box !important;
+        padding: 40px 20px !important;
+        height: auto !important; /* 核心：高度自動長度 */
+        margin-top: 60px;
     }
 
-    /* 3. 淺綠色主框框：核心修正（移除 overflow:hidden） */
-    .header-section, .card, .glass-panel {
-        /* 增加左右 Padding，讓文字跟框框邊緣有距離 */
-        padding: 40px 20px 60px 20px !important; 
-        height: auto !important;          
-        min-height: 650px !important;     
-        border-radius: 30px !important;
-        
+    .profile-photo {
+        width: 250px !important; /* 縮小照片防止遮擋 */
+        height: 250px !important;
+        margin-bottom: 30px;
+    }
+
+    .profile-info {
+        margin-left: 0 !important;
         width: 100% !important;
-        max-width: 100% !important; 
-        box-sizing: border-box !important; 
-        
-        /* 關鍵修正：將 hidden 改回 visible，確保文字不會被切掉 */
-        overflow: visible !important; 
-        
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: flex-start !important; 
+        text-align: center !important; /* 名字跟校位置中 */
     }
 
-    /* 4. 名字與校名 */
-    .main-title, .intro-text, .header-section p {
-        text-align: center !important; 
-        align-self: center !important;    
-        width: 100% !important;
-        margin-left: 0 !important;        
-        margin-top: 0 !important;
-        font-size: 1.6rem !important; 
-        white-space: normal !important;   
-        /* 讓文字在邊緣自動換行，而不是被切掉 */
-        word-wrap: break-word !important;
-        overflow-wrap: break-word !important;
+    .profile-info h1 {
+        font-size: 2.2rem !important;
     }
 
-    /* 5. 圖片區塊 */
-    .image-box {
-        max-width: 250px !important; 
-        margin: 0 auto 30px auto !important; 
-        align-self: center !important;
+    .profile-info .school {
+        font-size: 1.3rem !important;
     }
 
-    /* 6. 資料清單：防止 Email 切斷的終極設定 */
-    .text-text, .profile-info {
-        width: 100% !important;
-        text-align: left !important;
-        box-sizing: border-box !important;
-        
-        /* 確保文字換行 */
-        word-wrap: break-word !important;
-        overflow-wrap: break-word !important;
-        word-break: break-all !important; 
+    /* 關鍵：讓詳細資訊區塊「整體置中」但「文字靠左」 */
+    .details {
+        display: inline-block !important; /* 讓寬度隨文字長度 */
+        text-align: left !important;      /* 文字靠左對齊 */
+        margin: 0 auto !important;        /* 區塊置中 */
+        width: auto !important;
+        max-width: 100%;
     }
 
-    .text-text ul {
-        list-style: none !important;      
-        padding: 0 !important;
-        margin: 0 !important;
-        width: 100% !important;
+    .details li {
+        font-size: 1.1rem !important;
+        margin-bottom: 15px !important;
+        padding-left: 12px !important;
+        word-break: break-all !important; /* 避免信箱撐破 */
     }
 
-    .text-text ul li {
-        display: block !important;
-        text-align: left !important;      
-        font-size: 1.2rem !important;
-        line-height: 1.6 !important;
-        margin-bottom: 25px !important;   
-        
-        border-left: 5px solid #f90 !important; 
-        padding-left: 15px !important;    
-        
-        width: 100% !important;
-        box-sizing: border-box !important;
-        /* 確保每一行文字都不會因為太長而被切掉 */
-        overflow: visible !important; 
-    }
-
-    /* 7. 返回按鈕 */
+    /* 修正返回按鈕位置，避免飛出去 */
     .back-link {
-        position: fixed;
         top: 15px;
-        right: 15px;
-        z-index: 9999;
-        background: rgba(200, 198, 110, 0.9) !important;
-        color: #333 !important;
-        border-radius: 20px;
+        right: 15px; /* 改為正值，確保在螢幕內 */
+        font-size: 0.9rem;
     }
-     .text-text ul li:last-child {
-        white-space: normal !important;
-        line-height: 1.6;
-    }
-    
 }
