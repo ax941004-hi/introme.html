@@ -121,62 +121,114 @@ body {
 
 /* 手機版適應：當螢幕太小時自動切換垂直佈局 */
 /* --- 手機版響應式：強制修正版 --- */
+/* --- 手機版響應式設定 (@media) --- */
 @media (max-width: 900px) {
-    /* 1. 確保卡片顏色與滾動 */
+    /* 1. 全域滾動設定 */
+    body {
+        padding: 0;      
+        height: auto !important;   
+        overflow-y: auto !important; 
+        overflow-x: hidden !important; 
+        display: block;            
+    }
+
+    /* 2. 主容器：增加左右預留空間 */
+    .main-container {
+        width: 100% !important;
+        margin-top: 70px !important; 
+        padding: 0 15px !important; /* 增加左右間距，防止內容貼齊螢幕 */
+        box-sizing: border-box !important;
+    }
+
+    /* 3. 淺綠色主框框：核心修正（移除 overflow:hidden） */
     .header-section, .card, .glass-panel {
-        background-color: #dfe1c7 !important; /* 維持你的淺藍色 */
-        padding:40px 40px 60px 20px !important;
+        /* 增加左右 Padding，讓文字跟框框邊緣有距離 */
+        padding: 40px 20px 60px 20px !important; 
         height: auto !important;          
-        min-height: 600px !important;     
+        min-height: 650px !important;     
+        border-radius: 30px !important;
+        
+        width: 100% !important;
+        max-width: 100% !important; 
+        box-sizing: border-box !important; 
+        
+        /* 關鍵修正：將 hidden 改回 visible，確保文字不會被切掉 */
+        overflow: visible !important; 
+        
         display: flex !important;
         flex-direction: column !important;
-        align-items: center !important;    /* 讓容器內的物件整體置中 */
+        align-items: flex-start !important; 
     }
 
-    /* 2. 標題與校名：維持置中 */
+    /* 4. 名字與校名 */
     .main-title, .intro-text, .header-section p {
-        text-align: center !important;
+        text-align: center !important; 
+        align-self: center !important;    
         width: 100% !important;
-        margin-left: 0 !important;
+        margin-left: 0 !important;        
         margin-top: 0 !important;
+        font-size: 1.6rem !important; 
+        white-space: normal !important;   
+        /* 讓文字在邊緣自動換行，而不是被切掉 */
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
     }
 
-    /* 3. 核心修正：讓資料清單「整體置中」但「文字靠左」 */
+    /* 5. 圖片區塊 */
+    .image-box {
+        max-width: 250px !important; 
+        margin: 0 auto 30px auto !important; 
+        align-self: center !important;
+    }
+
+    /* 6. 資料清單：防止 Email 切斷的終極設定 */
     .text-text, .profile-info {
         width: 100% !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;    /* 讓整個清單塊在手機中央 */
+        text-align: left !important;
+        box-sizing: border-box !important;
         
+        /* 確保文字換行 */
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        word-break: break-all !important; 
     }
 
     .text-text ul {
-        list-style: none !important;       
+        list-style: none !important;      
         padding: 0 !important;
         margin: 0 !important;
-        display: inline-block !important;  /* 關鍵：讓清單寬度隨文字長度 */
-        text-align: left !important;       /* 關鍵：讓清單內的文字靠左 */
+        width: 100% !important;
     }
 
     .text-text ul li {
         display: block !important;
-        text-align: left !important;       /* 確保每一行都靠左 */
-        margin-bottom: 15px !important;
+        text-align: left !important;      
         font-size: 1.2rem !important;
-        word-break: break-all !important;  
-        border-left: 4px solid #f90;       /* 你的橘色邊條裝飾 */
-        padding-left: 15px !important;     /* 邊條跟文字的間距 */
+        line-height: 1.6 !important;
+        margin-bottom: 25px !important;   
+        
+        border-left: 5px solid #f90 !important; 
+        padding-left: 15px !important;    
+        
+        width: 100% !important;
+        box-sizing: border-box !important;
+        /* 確保每一行文字都不會因為太長而被切掉 */
+        overflow: visible !important; 
     }
 
-    /* 4. 修正我的興趣：處理多行文字 */
-    .text-text ul li:last-child {
+    /* 7. 返回按鈕 */
+    .back-link {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 9999;
+        background: rgba(200, 198, 110, 0.9) !important;
+        color: #333 !important;
+        border-radius: 20px;
+    }
+     .text-text ul li:last-child {
         white-space: normal !important;
         line-height: 1.6;
     }
-
-    /* 5. 返回按鈕位置 */
-    .back-link {
-        top: 15px;
-        right: -80px;
-    }
+    
 }
