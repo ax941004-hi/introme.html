@@ -120,66 +120,63 @@ body {
 }
 
 /* 手機版適應：當螢幕太小時自動切換垂直佈局 */
+/* --- 手機版響應式：強制修正版 --- */
 @media (max-width: 900px) {
-    /* 1. 讓卡片容器寬度活起來 */
-    .card {
-        flex-direction: column !important; /* 強制轉為垂直排版 */
-        width: 90% !important;           /* 寬度從固定 px 轉為百分比 */
-        max-width: 400px;                /* 手機版不要太寬 */
-        height: auto !important;         /* 高度自動撐開，解決不能下拉的問題 */
-        min-height: min-content;         /* 確保高度隨內容增長 */
-        margin: 40px auto !important;    /* 上下留 40px 空間，增加呼吸感 */
-        padding: 40px 20px !important;   /* 縮小內距，讓空間給文字 */
-        left: 0 !important;              
-        transform: none !important;      
+    /* 1. 確保卡片顏色與滾動 */
+    .header-section, .card, .glass-panel {
+        background-color: #dfe1c7 !important; /* 維持你的淺藍色 */
+        padding:40px 40px 60px 20px !important;
+        height: auto !important;          
+        min-height: 600px !important;     
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;    /* 讓容器內的物件整體置中 */
+    }
+
+    /* 2. 標題與校名：維持置中 */
+    .main-title, .intro-text, .header-section p {
+        text-align: center !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    /* 3. 核心修正：讓資料清單「整體置中」但「文字靠左」 */
+    .text-text, .profile-info {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;    /* 讓整個清單塊在手機中央 */
         
-        /* 關鍵修正：解決字跑出去的問題 */
-        overflow-wrap: break-word;       /* 現代瀏覽器自動換行 */
-        word-wrap: break-word;           /* 舊版瀏覽器相容 */
-        word-break: break-all;           /* 強制截斷長字串 (如 Email) */
     }
 
-    /* 2. 讓資訊區塊置中 */
-    .profile-info {
-        margin-left: 0 !important;       
-        margin-top: 30px;
-        text-align: center;
-        width: 100%;
-        overflow: visible;               /* 確保內容不被隱藏 */
+    .text-text ul {
+        list-style: none !important;       
+        padding: 0 !important;
+        margin: 0 !important;
+        display: inline-block !important;  /* 關鍵：讓清單寬度隨文字長度 */
+        text-align: left !important;       /* 關鍵：讓清單內的文字靠左 */
     }
 
-    /* 3. 照片縮放並確保置中 */
-    .profile-photo {
-        width: 180px !important; 
-        height: 180px !important;
-        margin: 0 auto;                  /* 置中 */
-        flex-shrink: 0;                  /* 防止照片被擠壓變形 */
+    .text-text ul li {
+        display: block !important;
+        text-align: left !important;       /* 確保每一行都靠左 */
+        margin-bottom: 15px !important;
+        font-size: 1.2rem !important;
+        word-break: break-all !important;  
+        border-left: 4px solid #f90;       /* 你的橘色邊條裝飾 */
+        padding-left: 15px !important;     /* 邊條跟文字的間距 */
     }
 
-    /* 4. 返回按鈕調整 */
+    /* 4. 修正我的興趣：處理多行文字 */
+    .text-text ul li:last-child {
+        white-space: normal !important;
+        line-height: 1.6;
+    }
+
+    /* 5. 返回按鈕位置 */
     .back-link {
-        position: absolute;
         top: 15px;
-        right: 15px;
-        font-size: 0.8rem;
-        padding: 5px 12px;
-        z-index: 10;                     /* 確保按鈕在最上層可點擊 */
-    }
-
-    /* 5. 列表項目的文字微調 */
-    .profile-info ul {
-        list-style: none;
-        padding: 0;
-        display: inline-block;           
-        text-align: left;                /* 內容靠左比較好讀 */
-        max-width: 100%;                 /* 限制清單寬度 */
-    }
-
-    /* 針對內容文字的自動換行 */
-    .profile-info li, 
-    .profile-info p {
-        white-space: normal;             /* 強制取消「不換行」設定 */
-        line-height: 1.6;                /* 增加行高，折行後才不會疊在一起 */
-        margin-bottom: 10px;
+        right: -80px;
     }
 }
