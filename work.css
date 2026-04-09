@@ -168,3 +168,92 @@ body {
 .nav-arrow:hover { transform: translateY(-50%) scale(1.2); }
 .left { left: 10px; }
 .right { right: 10px; }
+/* --- 手機版響應式設定 (max-width: 900px) --- */
+@media (max-width: 900px) {
+    body {
+        /* 讓背景在捲動時更穩定 */
+        background-attachment: scroll; 
+        padding: 10px;
+    }
+
+    /* 1. 主容器調整 */
+    .main-container {
+        width: 100%;
+        margin-top: 60px; /* 留空間給返回按鈕 */
+        gap: 40px;
+    }
+
+    /* 2. 白色標題框：縮小字體並調整內距 */
+    .white-box {
+        padding: 20px 15px;
+        font-size: 1.8rem !important; /* 原本 3.5rem 太大，縮小到適合手機 */
+        border-radius: 12px;
+        line-height: 1.2;
+    }
+
+    /* 3. 關鍵：將橫向的資訊列改為垂直排列 */
+    .info-row {
+        flex-direction: column; 
+        gap: 15px;
+        padding: 0;
+        align-items: center; /* 讓黃字與橘連結水平置中 */
+    }
+
+    /* 4. 黃字區塊調整 */
+    .yellow-text {
+        width: 100%;           /* 寬度撐滿 */
+        padding: 12px 20px;
+        font-size: 1.2rem;     /* 縮小字體 */
+        text-align: center;    /* 文字置中 */
+        border-radius: 15px;
+    }
+
+    /* 5. 橘色連結調整 */
+    .orange-link {
+        width: 100%;           /* 寬度撐滿 */
+        padding: 15px 20px;
+        font-size: 1.2rem;
+        text-align: center;    /* 文字置中 */
+        border-radius: 15px;
+    }
+
+    /* 6. 圖片與箭頭優化 */
+    .image-wrapper {
+        border-width: 3px;     /* 邊框縮小點 */
+    }
+
+    .nav-arrow {
+        font-size: 2.5rem;     /* 縮小箭頭避免遮住圖片內容 */
+        background: rgba(255, 255, 255, 0.3); /* 給箭頭一點背景色方便手機點擊 */
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .left { left: 5px; }
+    .right { right: 5px; }
+
+    /* 7. 返回按鈕位置調整 */
+    .back-link {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        font-size: 0.9rem;
+        padding: 6px 12px;
+        background: rgba(11, 0, 51, 0.8);
+        backdrop-filter: blur(5px);
+    }
+}
+
+/* 針對極窄螢幕 (如 iPhone SE) 的微調 */
+@media (max-width: 380px) {
+    .white-box {
+        font-size: 1.5rem !important;
+    }
+    .yellow-text, .orange-link {
+        font-size: 1.1rem;
+    }
+}

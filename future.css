@@ -135,3 +135,104 @@ body {
     line-height: 1.5;  /* 數值越大，每一行字之間的距離就越開 */
     margin-left: 20px; /* 建議給一點左邊距，讓文字不要貼邊 */
 }
+/* --- 手機版適應設定 --- */
+@media (max-width: 900px) {
+    /* 1. 調整整體背景與滾動 */
+    body {
+        padding: 10px;      
+        height: auto !important; /* 強制高度自適應，解決無法下拉問題 */
+        min-height: 100vh;
+        overflow-y: auto !important; 
+        display: block;     
+    }
+
+    /* 2. 容器寬度活化 */
+    .main-container {
+        width: 95% !important;
+        margin: 60px auto 20px auto; /* 上方留空間給返回按鈕 */
+        max-width: none;    
+        box-sizing: border-box; /* 確保 padding 不會撐開寬度 */
+    }
+
+    /* 3. 調整頂部區塊與標題 (修正跑出去的關鍵) */
+    .header-section {
+        padding: 40px 15px 20px 15px; 
+        font-size: 18px;    
+        border-radius: 0px 30px 30px 30px; /* 稍微縮小圓角 */
+        box-sizing: border-box;
+    }
+
+    .main-title {
+        font-size: 1.4rem !important;  
+        margin-left: 0 !important; /* 強制歸零，防止標題往左飛出去 */
+        margin-top: 0 !important;
+        width: auto !important;    /* 改為自動寬度 */
+        max-width: 100%;           /* 限制最大寬度 */
+        display: inline-block;
+        text-align: center;
+        border-radius: 0px 25px 25px 25px;
+        padding: 8px 20px;
+        box-sizing: border-box;
+    }
+
+    /* 4. 內容區塊換行處理 */
+    .content-body {
+        padding: 20px 15px;
+        border-radius: 0px 20px 20px 20px;
+        word-wrap: break-word;   
+        word-break: break-all; /* 強制長文字換行，防止撐破容器 */
+        box-sizing: border-box;
+    }
+
+    .sub-title {
+        font-size: 1.6rem !important;  
+        margin-left: 0 !important; /* 歸零 */
+        margin-top: 5px !important;
+        width: auto !important;
+        max-width: 100%;
+        padding: 5px 15px;
+        box-sizing: border-box;
+        line-height: 1.2;
+    }
+
+    /* 5. 圖片區塊自適應 */
+    .image-box {
+        padding: 5px;
+        margin-bottom: 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .image-box img {
+        width: 100%; /* 圖片撐滿容器寬度 */
+        height: auto;
+    }
+
+    /* 6. 文字區塊優化 */
+    .intro-text {
+        font-size: 22px;    
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .text-text {
+        font-size: 18px;    
+        margin-left: 0 !important; /* 取消左移 */
+        padding: 0 5px;
+        line-height: 1.6;   
+        text-align: left; /* 手機版靠左較易閱讀 */
+        word-break: break-all;
+    }
+
+    /* 7. 返回按鈕位置調整 */
+    .back-link {
+        position: fixed; /* 固定在螢幕上方，方便隨時返回 */
+        top: 10px;
+        right: 10px;
+        font-size: 0.85rem;
+        padding: 6px 12px;
+        background: rgba(13, 0, 51, 0.8) !important; /* 加深背景色 */
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+}

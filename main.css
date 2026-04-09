@@ -136,25 +136,51 @@ body {
     .profile-card {
         flex-direction: column;
         text-align: center;
+        /* 關鍵：手機版強制回歸 100% 寬度並重置 margin，否則內容會飛出螢幕 */
+        width: 100%; 
+        margin: 20px auto; 
+        margin-right: 0; 
     }
+
     .photo-container {
         margin-left: 0;
-        margin-bottom: -60px;
+        /* 稍微加深負 margin 讓圓形照片更優雅地壓在毛玻璃面板上 */
+        margin-bottom: -70px; 
         order: -1;
+        z-index: 5; /* 確保照片在手機版也是最上層 */
     }
+
     .circle-mask {
-        width: 250px;
-        height: 250px;
+        /* 保持你的比例，但縮小尺寸以符合手機螢幕 */
+        width: 260px;
+        height: 260px;
+        border-width: 6px; /* 稍微調細邊框，看起來更精緻 */
     }
+
     .glass-panel {
-        padding: 80px 30px 40px 30px;
+        /* padding-top 留多一點空間給上方壓下來的照片 */
+        padding: 90px 20px 40px 20px; 
         width: 100%;
+        border-radius: 20px;
     }
+
     .name-container {
         justify-content: center;
+        margin-bottom: 30px; /* 稍微縮減間距讓佈局更緊湊 */
     }
+
+    .name-dot {
+        width: 180px; /* 手機版名字圓圈稍微縮小 */
+        height: 90px;
+        font-size: 24px;
+    }
+
     .btn-link {
         margin: 0 auto;
+        /* 讓按鈕在手機上稍微寬一點，比較好點 */
+        width: 90%; 
+        max-width: 300px;
+        padding: 14px 0; 
     }
 }
 .menu-checkbox {

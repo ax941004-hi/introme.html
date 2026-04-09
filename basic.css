@@ -10,7 +10,8 @@ body {
     font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
     color: #fff;
     position: relative; /* 讓右上角定位參考 body */
-    overflow: hidden; /* 防止出現滾動條 */
+   /* overflow: hidden; /* 防止出現滾動條 */
+   
      background-image: 
         /* 1. 最上面的漸層 (淺藍色切線，角度更斜 160deg) */
         linear-gradient(
@@ -120,24 +121,65 @@ body {
 
 /* 手機版適應：當螢幕太小時自動切換垂直佈局 */
 @media (max-width: 900px) {
+    /* 1. 讓卡片容器寬度活起來 */
     .card {
-        flex-direction: column;
-        width: 90vw;
-        height: auto;
-        padding: 40px 20px;
+        flex-direction: column !important; /* 強制轉為垂直排版 */
+        width: 90% !important;           /* 寬度從固定 px 轉為百分比 */
+        max-width: 400px;                /* 手機版不要太寬 */
+        height: auto !important;         /* 高度自動撐開，解決不能下拉的問題 */
+        min-height: min-content;         /* 確保高度隨內容增長 */
+        margin: 40px auto !important;    /* 上下留 40px 空間，增加呼吸感 */
+        padding: 40px 20px !important;   /* 縮小內距，讓空間給文字 */
+        left: 0 !important;              
+        transform: none !important;      
+        
+        /* 關鍵修正：解決字跑出去的問題 */
+        overflow-wrap: break-word;       /* 現代瀏覽器自動換行 */
+        word-wrap: break-word;           /* 舊版瀏覽器相容 */
+        word-break: break-all;           /* 強制截斷長字串 (如 Email) */
     }
+
+    /* 2. 讓資訊區塊置中 */
     .profile-info {
-        margin-left: 0;
+        margin-left: 0 !important;       
         margin-top: 30px;
         text-align: center;
+        width: 100%;
+        overflow: visible;               /* 確保內容不被隱藏 */
     }
+
+    /* 3. 照片縮放並確保置中 */
     .profile-photo {
-        width: 200px;
-        height: 200px;
+        width: 180px !important; 
+        height: 180px !important;
+        margin: 0 auto;                  /* 置中 */
+        flex-shrink: 0;                  /* 防止照片被擠壓變形 */
     }
+
+    /* 4. 返回按鈕調整 */
     .back-link {
-        top: 20px;
-        right: 20px;
-        font-size: 0.9rem;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 0.8rem;
+        padding: 5px 12px;
+        z-index: 10;                     /* 確保按鈕在最上層可點擊 */
+    }
+
+    /* 5. 列表項目的文字微調 */
+    .profile-info ul {
+        list-style: none;
+        padding: 0;
+        display: inline-block;           
+        text-align: left;                /* 內容靠左比較好讀 */
+        max-width: 100%;                 /* 限制清單寬度 */
+    }
+
+    /* 針對內容文字的自動換行 */
+    .profile-info li, 
+    .profile-info p {
+        white-space: normal;             /* 強制取消「不換行」設定 */
+        line-height: 1.6;                /* 增加行高，折行後才不會疊在一起 */
+        margin-bottom: 10px;
     }
 }
