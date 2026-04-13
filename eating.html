@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南部胃的台中生存戰</title>
+    <link rel="stylesheet" href="eating.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <header class="main-header">
+            <h1>🍱<span>南部胃的台中生存戰</span></h1>
+        </header>
+
+        <section class="action-bar">
+            <div class="search-group">
+                <input type="text" id="searchInput" placeholder="🔍 搜尋據點、分類或生存筆記...">
+            </div>
+            
+            <div class="add-group">
+                <div class="input-row">
+                    <input type="text" id="newName" placeholder="店名">
+                    <select id="newCat">
+                        <option value="火鍋">火鍋</option>
+                        <option value="拉麵">拉麵</option>
+                        <option value="燒肉">燒肉</option>
+                        <option value="控肉飯">控肉飯</option>
+                        <option value="甜點">甜點</option>
+                        <option value="飲料">飲料</option>
+                    </select>
+                </div>
+                <div class="input-row">
+                    <input type="text" id="newUrl" placeholder="地圖連結">
+                    <label class="file-label">📸 初始照片 <input type="file" id="newFiles" multiple accept="image/*"></label>
+                </div>
+                <textarea id="newInfo" placeholder="寫下對該據點的第一印象..."></textarea>
+                <button id="addBtn">建立生存據點</button>
+            </div>
+        </section>
+
+        <div id="foodContainer" class="card-grid"></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script>
+        // 1. Firebase 配置
+        const firebaseConfig = {
+            apiKey: "AIzaSyB4PwjGTopt5mCaW0FeUAVjMIWP1le7iEU",
+            authDomain: "foodweb-a818b.firebaseapp.com",
+            databaseURL: "https://foodweb-a818b-default-rtdb.firebaseio.com",
+            projectId: "foodweb-a818b",
+            storageBucket: "foodweb-a818b.firebasestorage.app",
+            messagingSenderId: "252878965984",
+            appId: "1:252878965984:web:849f5939e3415a63d51485"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const foodRef = database.ref('SurvivalData');
+
+        let foodData = [];
+
+        // 2. 圖片壓縮工具：將圖片壓縮以節省資料庫空間
+        async function compressImage(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const MAX_WIDTH = 800; // 限制最大寬度為 800px
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        // 以 0.7 的品質壓縮成 JPEG
+                        resolve(canvas.toDataURL('image/jpeg', 0.7));
+                    };
+                };
+            });
+        }
+
+        // 3. 讀取 Firebase 資料
+        foodRef.on('value', (snapshot) => {
+            const val = snapshot.val();
+            let flatData = [];
+            if (val) {
+                Object.keys(val).forEach(cat => {
+                    Object.keys(val[cat]).forEach(shopKey => {
+                        flatData.push(val[cat][shopKey]);
+                    });
+                });
+            }
+            foodData = flatData;
+            render(foodData);
+        });
+
+        // 4. 按分類儲存到 Firebase
+        function save() {
+            let structuredData = {};
+            foodData.forEach(item => {
+                if (!structuredData[item.cat]) structuredData[item.cat] = {};
+                const safeKey = item.name.replace(/[\.\#\$\[\]]/g, "_");
+                structuredData[item.cat][safeKey] = item;
+            });
+            foodRef.set(structuredData);
+        }
+
+        function render(data) {
+            const container = document.getElementById('foodContainer');
+            container.innerHTML = '';
+            const cats = ["火鍋", "拉麵", "燒肉", "控肉飯", "甜點", "飲料"];
+            
+            cats.forEach(cat => {
+                const shops = data.filter(i => i.cat === cat);
+                if (shops.length === 0) return;
+
+                const card = document.createElement('div');
+                card.className = 'category-card';
+                const list = shops.map(i => {
+                    const shopKey = encodeURIComponent(i.name);
+                    return `
+                    <li class="shop-item">
+                        <div class="shop-main" onclick="toggleInfo('${shopKey}')">
+                            <span class="shop-title">${i.name}</span>
+                            <div class="btn-group">
+                                <a href="${i.url}" target="_blank" onclick="event.stopPropagation()">MAP</a>
+                                <button class="del-btn" onclick="event.stopPropagation(); deleteItem('${i.name}')">×</button>
+                            </div>
+                        </div>
+                        <div id="details-${shopKey}" class="shop-details">
+                            <div class="photo-gallery">
+                                ${(i.imgs || []).map((src, index) => `
+                                    <div class="polaroid">
+                                        <img src="${src}">
+                                        <span class="photo-del" onclick="removePhoto('${i.name}', ${index})">×</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="edit-panel">
+                                <label class="append-file-label">📸 追加照片 <input type="file" onchange="appendPhotos(this, '${i.name}')" multiple accept="image/*"></label>
+                                <textarea onchange="updateInfo(this.value, '${i.name}')" placeholder="紀錄筆記...">${i.info || ''}</textarea>
+                            </div>
+                        </div>
+                    </li>`;
+                }).join('');
+                card.innerHTML = `<h2>${cat}</h2><ul>${list}</ul>`;
+                container.appendChild(card);
+            });
+        }
+
+        // 功能函式
+        window.appendPhotos = async (input, name) => {
+            const compressedImgs = [];
+            for (let file of input.files) {
+                compressedImgs.push(await compressImage(file));
+            }
+            const item = foodData.find(i => i.name === name);
+            if(!item.imgs) item.imgs = [];
+            item.imgs.push(...compressedImgs);
+            save();
+        };
+
+        window.updateInfo = (val, name) => { foodData.find(i => i.name === name).info = val; save(); };
+        window.deleteItem = (name) => {
+            if(confirm(`確定刪除 ${name}？`)) {
+                foodData = foodData.filter(i => i.name !== name);
+                save();
+            }
+        };
+
+        window.toggleInfo = (key) => { 
+            const el = document.getElementById(`details-${key}`);
+            if (!el) return;
+            const isActive = el.classList.contains('active');
+            document.querySelectorAll('.shop-details').forEach(d => d.classList.remove('active'));
+            if (!isActive) el.classList.add('active');
+        };
+
+        document.getElementById('addBtn').onclick = async () => {
+            const name = document.getElementById('newName').value.trim();
+            if(name) {
+                const compressedImgs = [];
+                const files = document.getElementById('newFiles').files;
+                for (let file of files) {
+                    compressedImgs.push(await compressImage(file));
+                }
+                foodData.push({
+                    cat: document.getElementById('newCat').value,
+                    name: name,
+                    info: document.getElementById('newInfo').value,
+                    imgs: compressedImgs,
+                    url: document.getElementById('newUrl').value
+                });
+                save();
+                document.getElementById('newName').value = '';
+            }
+        };
+        document.getElementById('searchInput').oninput = (e) => {
+            // 1. 取得搜尋關鍵字並轉為小寫
+            const val = e.target.value.toLowerCase().trim();
+
+            // 2. 如果搜尋框是空的，直接渲染全部資料
+            if (val === "") {
+                render(foodData);
+                return;
+            }
+
+            // 3. 過濾資料：檢查店名、分類、或筆記是否包含關鍵字
+            const filteredData = foodData.filter(i => {
+                const nameMatch = i.name && i.name.toLowerCase().includes(val);
+                const catMatch = i.cat && i.cat.toLowerCase().includes(val);
+                const infoMatch = i.info && i.info.toLowerCase().includes(val);
+                
+                return nameMatch || catMatch || infoMatch;
+            });
+
+            // 4. 重新渲染過濾後的資料
+            render(filteredData);
+        };
+    </script>
+</body>
+</html>
